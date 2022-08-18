@@ -3,10 +3,8 @@ export default class ObjectValidator {
     this.rules = {};
   }
 
-  async isValid(obj) {
-    const promises = Object.entries(obj).map(([key, value]) => this.rules[key].isValid(value));
-    const result = await Promise.all(promises);
-    return !result.includes(false);
+  isValid(obj) {
+    return Object.entries(obj).every(([key, value]) => this.rules[key].isValid(value));
   }
 
   shape(objSchema) {

@@ -1,5 +1,4 @@
 /* eslint-disable import/extensions */
-import * as yup from 'yup';
 import StringValidator from './StringValidator.js';
 import NumberValidator from './NumberValidator.js';
 import ArrayValidator from './ArrayValidator.js';

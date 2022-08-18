@@ -5,10 +5,8 @@ export default class ArrayValidator {
     this.rules = [];
   }
 
-  async isValid(arr) {
-    const promises = this.rules.map((rule) => rule.isValid(arr));
-    const result = await Promise.all(promises);
-    return !result.includes(false);
+  isValid(arr) {
+    return this.rules.every((rule) => rule.isValidSync(arr));
   }
 
   required() {

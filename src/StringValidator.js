@@ -5,10 +5,8 @@ export default class StringValidator {
     this.rules = [];
   }
 
-  async isValid(str) {
-    const promises = this.rules.map((rule) => rule.isValid(str));
-    const result = await Promise.all(promises);
-    return !result.includes(false);
+  isValid(str) {
+    return this.rules.every((rule) => rule.isValidSync(str));
   }
 
   required() {

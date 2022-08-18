@@ -5,10 +5,8 @@ export default class NumberValidator {
     this.rules = [];
   }
 
-  async isValid(number) {
-    const promises = this.rules.map((rule) => rule.isValid(number));
-    const result = await Promise.all(promises);
-    return !result.includes(false);
+  isValid(number) {
+    return this.rules.every((rule) => rule.isValidSync(number));
   }
 
   required() {
