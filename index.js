@@ -1,4 +1,7 @@
-const schema = null;
-console.log(schema);
-const schema2 = schema ?? 'wow';
-console.log(schema2);
+/* eslint-disable import/extensions */
+import Validator from './src/Validator.js';
+
+const v = new Validator();
+
+const schema = v.string();
+export default schema;

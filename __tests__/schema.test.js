@@ -2,21 +2,9 @@
 /* eslint-disable import/extensions */
 import Validator from '../src/Validator.js';
 
-let v;
-let schema;
-let schema2;
-let schema3;
-let schema4;
-
-beforeAll(() => {
-  v = new Validator();
-  schema = v.string();
-  schema2 = v.number();
-  schema3 = v.array();
-  schema4 = v.object();
-});
-
 test('string', async () => {
+  const v = new Validator();
+  const schema = v.string();
   expect(await schema.isValid('')).toBeTruthy();
   expect(await schema.isValid(null)).toBeTruthy();
   expect(await schema.isValid(undefined)).toBeTruthy();
@@ -32,6 +20,8 @@ test('string', async () => {
 });
 
 test('number', async () => {
+  const v = new Validator();
+  const schema2 = v.number();
   expect(await schema2.isValid(null)).toBeTruthy();
   schema2.required();
   expect(await schema2.isValid(0)).toBeTruthy();
@@ -45,6 +35,8 @@ test('number', async () => {
 });
 
 test('array', async () => {
+  const v = new Validator();
+  const schema3 = v.array();
   expect(await schema3.isValid(null)).toBeTruthy();
   schema3.required();
   expect(await schema3.isValid([])).toBeTruthy();
@@ -55,6 +47,8 @@ test('array', async () => {
 });
 
 test('object', async () => {
+  const v = new Validator();
+  const schema4 = v.object();
   schema4.shape({
     name: v.string().required(),
     age: v.number().positive(),
@@ -63,4 +57,18 @@ test('object', async () => {
   expect(await schema4.isValid({ name: 'maya', age: null })).toBeTruthy();
   expect(await schema4.isValid({ name: '', age: null })).toBeFalsy();
   expect(await schema4.isValid({ name: 'ada', age: -5 })).toBeFalsy();
+});
+
+test('addValidator', async () => {
+  const v = new Validator();
+  const fn1 = (value, start) => value.startsWith(start);
+  v.addValidator('string', 'startWith', fn1);
+  const schema5 = v.string().test('startWith', 'H');
+  expect(await schema5.isValid('Hexlet')).toBeTruthy();
+  expect(await schema5.isValid('exlet')).toBeFalsy();
+  const fn2 = (value, min) => value >= min;
+  v.addValidator('number', 'min', fn2);
+  const schema6 = v.number().test('min', 5);
+  expect(await schema6.isValid(6)).toBeTruthy();
+  expect(await schema6.isValid(4)).toBeFalsy();
 });

@@ -25,4 +25,12 @@ export default class StringValidator {
     this.rules.push(yup.string().nullable().min(number));
     return this;
   }
+
+  test(fnName, ...params) {
+    this.rules.push(yup.string().test({
+      name: 'startWith',
+      test: (value) => this[fnName](value, ...params),
+    }));
+    return this;
+  }
 }

@@ -25,4 +25,9 @@ export default class NumberValidator {
     this.rules.push(yup.number().nullable().min(num1).max(num2));
     return this;
   }
+
+  test(fnName, ...params) {
+    this.rules.push(yup.number().test((value) => this[fnName](value, ...params)));
+    return this;
+  }
 }

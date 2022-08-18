@@ -6,20 +6,32 @@ import ArrayValidator from './ArrayValidator.js';
 import ObjectValidator from './ObjectValidator.js';
 
 class Validator {
+  constructor() {
+    this.stringValidator = new StringValidator();
+    this.numberValidator = new NumberValidator();
+    this.arrayValidator = new ArrayValidator();
+    this.objectValidator = new ObjectValidator();
+  }
+
   string() {
-    return new StringValidator();
+    return this.stringValidator;
   }
 
   number() {
-    return new NumberValidator();
+    return this.numberValidator;
   }
 
   array() {
-    return new ArrayValidator();
+    return this.arrayValidator;
   }
 
   object() {
-    return new ObjectValidator();
+    return this.objectValidator;
+  }
+
+  addValidator(type, name, fn) {
+    const validatorName = `${type}Validator`;
+    this[validatorName][name] = fn;
   }
 }
 export default Validator;

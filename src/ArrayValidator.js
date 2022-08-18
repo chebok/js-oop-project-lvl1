@@ -20,4 +20,9 @@ export default class ArrayValidator {
     this.rules.push(yup.array().min(number));
     return this;
   }
+
+  test(fnName, ...params) {
+    this.rules.push(yup.array().test((value) => this[fnName](value, ...params)));
+    return this;
+  }
 }
