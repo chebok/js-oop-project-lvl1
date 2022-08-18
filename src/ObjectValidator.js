@@ -4,6 +4,9 @@ export default class ObjectValidator {
   }
 
   isValid(obj) {
+    if (!obj) {
+      return false;
+    }
     return Object.entries(obj).every(([key, value]) => this.rules[key].isValid(value));
   }
 
