@@ -17,12 +17,12 @@ export default class NumberValidator {
   }
 
   positive() {
-    this.rules.push(yup.number().required().positive());
+    this.rules.push(yup.number().nullable().positive());
     return this;
   }
 
   range(num1, num2) {
-    this.rules.push(yup.number().required().min(num1).max(num2));
+    this.rules.push(yup.number().nullable().min(num1).max(num2));
     return this;
   }
 }

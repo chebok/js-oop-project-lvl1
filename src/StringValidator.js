@@ -17,12 +17,12 @@ export default class StringValidator {
   }
 
   contains(data) {
-    this.rules.push(yup.string().required().matches(data));
+    this.rules.push(yup.string().nullable().matches(data));
     return this;
   }
 
   minLength(number) {
-    this.rules.push(yup.string().required().min(number));
+    this.rules.push(yup.string().nullable().min(number));
     return this;
   }
 }

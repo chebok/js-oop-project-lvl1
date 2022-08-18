@@ -6,12 +6,14 @@ let v;
 let schema;
 let schema2;
 let schema3;
+let schema4;
 
 beforeAll(() => {
   v = new Validator();
   schema = v.string();
   schema2 = v.number();
   schema3 = v.array();
+  schema4 = v.object();
 });
 
 test('string', async () => {
@@ -50,4 +52,15 @@ test('array', async () => {
   schema3.sizeof(2);
   expect(await schema3.isValid(['hexlet'])).toBeFalsy();
   expect(await schema3.isValid(['hexlet', 'code-basics'])).toBeTruthy();
+});
+
+test('object', async () => {
+  schema4.shape({
+    name: v.string().required(),
+    age: v.number().positive(),
+  });
+  expect(await schema4.isValid({ name: 'kolya', age: 100 })).toBeTruthy();
+  expect(await schema4.isValid({ name: 'maya', age: null })).toBeTruthy();
+  expect(await schema4.isValid({ name: '', age: null })).toBeFalsy();
+  expect(await schema4.isValid({ name: 'ada', age: -5 })).toBeFalsy();
 });

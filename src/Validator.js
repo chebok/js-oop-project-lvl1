@@ -3,6 +3,7 @@ import * as yup from 'yup';
 import StringValidator from './StringValidator.js';
 import NumberValidator from './NumberValidator.js';
 import ArrayValidator from './ArrayValidator.js';
+import ObjectValidator from './ObjectValidator.js';
 
 class Validator {
   string() {
@@ -15,6 +16,10 @@ class Validator {
 
   array() {
     return new ArrayValidator();
+  }
+
+  object() {
+    return new ObjectValidator();
   }
 }
 export default Validator;
